@@ -11,7 +11,15 @@ sass = require('gulp-sass'),
 sourcemaps = require('gulp-sourcemaps'),
 autoprefixer = require('autoprefixer'),
 lost = require('lost'),
-browserSync = require('browser-sync').create();
+browserSync = require('browser-sync').create(),
+lib = require('bower-files')();
+
+gulp.task('bowerJS', function () {
+  return gulp.src(lib.ext('js').files)
+    .pipe(concat('vendor.min.js'))
+    .pipe(uglify())
+    .pipe(gulp.dest('./build/js'));
+});
 
 gulp.task('jshint', function(){
   return gulp.src(['js/*.js'])
